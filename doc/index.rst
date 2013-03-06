@@ -679,7 +679,7 @@ way, the url patterns are used both for **url pattern matching** *and* **link
 url generation**.
 
 In the template we created some moments ago, insert the name of the url you
-need into the address field, so that the line becomes:
+need into the link tag, so that the line becomes:
 
 .. code-block:: html+django
 
@@ -786,7 +786,7 @@ Append ``CreateView`` to the django.views import at the top of *views.py*, and
 create a new view like::
 
     class FoodCreateView(CreateView):
-        model = FoodCreateView
+        model = Food
 
 In the *urls.py*, add the new FoodCreateView to the import at the top, and add a
 new url pattern::
@@ -851,10 +851,10 @@ A more crispy form
 
 We will also make the form layout a bit nicer with the third party **Crispy
 Forms** module. This will help us by adding useful `CSS`_ classes that will be
-styled by the bootstrap css rules. To INSTALLED_APPS in *setup.py*, add
+styled by the bootstrap css rules. To INSTALLED_APPS in *settings.py*, add
 ``crispy_forms`` and install django-crispy-forms with pip::
 
-    pip install django-crispy-forms
+    pip install --update django-crispy-forms
 
 Below the extends line in the food_form template, add:
 
@@ -863,6 +863,8 @@ Below the extends line in the food_form template, add:
     {% load crispy_forms_tags %}
 
 And add the ``crispy`` filter to the form variable, like this:
+
+.. Forklar filter bedre. Legg også til Add ``|crispy`` (the filter) to the form variable, so that it looks like this:. Blir lett at man copy paster og legger inn hele greia på nytt igjen, og da har man to skjema istedet for et. 
 
 .. code-block:: html+django
 
@@ -889,9 +891,11 @@ form definition to use the POST method:
 
     <form method="POST">
 
+.. Gi bedre beskrivelse av hvor den skal limes inn/skrives. For eksempel kan du si at det skal legges til method="POST" etter form, slik at det ser slik ut: <form method="POST">, for da er det enklere å forstå at det skal inni klammene, og at endringen/det man skal legge til kun er en del av <form method="POST"> og ikke hele setningen. 
+
 If we try again, we will see another error, complaining about "Forbidden: CSRF
 verification failed. Request aborted.". *Cross site request forgery* is a well
-established mechanism to used to decide that a request originates from the same
+established mechanism (that?)to used to decide that a request originates from the same
 site. This is done by using the randomly generated ``SECRET`` variable in
 settings.py to generate a combination of characters that will be attached as
 hidden fields to all forms, and then be validated on the servers when the form
@@ -950,7 +954,7 @@ ingredients. But how do we connect the recipes to the food objects?
 There is a way to connect two models together in a very generic way. This is
 called a "many to many relation". In this case that would be too simple, as we
 need to add properties to the intermediate table. With `ManyToMany`_ we would
-be able to say what ingredients we need, but now how much of what ingredient we
+be able to say what ingredients we need, but not how much of it we
 need in the recipe.
 
 .. _ManyToMany: https://docs.djangoproject.com/en/dev/topics/db/examples/many_to_many/
